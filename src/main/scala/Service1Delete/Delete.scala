@@ -13,8 +13,7 @@ object Delete {
 
     /**   lit le fichier csv*   */
     val dataframe: org.apache.spark.sql.DataFrame = sparkSession.read.option("header", true)
-        //.csv("data\\steph.csv") //local
-        .csv("hdfs://172.31.250.9:7077/user/namenode/complianceRGPDMS")//hdfs
+        .csv("hdfs://172.31.250.9:7077/user/namenode/complianceRGPDMS")
     val appelShema = sparkSession.createDataFrame(dataframe.rdd, SchemaDonnee.schema)
 
     /**   Je supprime la ligne*   */
@@ -23,7 +22,7 @@ object Delete {
     /** J'affiche le reustat dans la console*   */
     result.show()
     /** Réecriture du nouveau contenu du fichier **   */
-    result.write.format("csv").mode("overwrite").save("data\\result.csv")
+    result.write.format("csv").mode("overwrite").save("hdfs://172.31.250.9:7077/user/namenode/complianceRGPDMS/result.csv")
 
   }
 
